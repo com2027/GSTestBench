@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Socket IO Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js'></script>
+    <script src='js/test.js'></script>
+  </head>
+  <body>
+
+    <div class='container'>
+      <div class='row'>
+        <div class='col'>
+          <h1>Bounty Hunter GS Test Bench</h1>
+        </div>
+      </div>
+      <div class='row connect-section'>
+        <div class='col-md-6'><input value='http://gs.bountyhunt.me' type='text' class='form-control' placeholder='Socket IO Server' id='URL'></div>
+        <div class='col-md-1'><button type="button" class="btn btn-success" onclick='connect();' id='connect'>Connect</button></div>
+        <div class='col-md-5'><p id='status-indicator'>Status: <span id='status' class='text-danger'>Disconnected</span></p>
+      </div>
+    </div>
+
+
+
+  </body>
+</html>
