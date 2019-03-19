@@ -21,6 +21,10 @@ function connect(){
           status_obj.classList.remove('text-danger');
           status_obj.classList.add('text-success');
           status_obj.innerText = "Connected";
+
+
+
+
         }else{
           connected = false;
           appendTerminal("Not Connected");
@@ -50,5 +54,9 @@ function connect(){
       }
     }, 1000);
   }
+
+  socket.on('*', function(event,msg){
+    appendTerminal("<b>Server (<i>"+ event + "</i>): </b>" + msg)
+  });
 
 }
