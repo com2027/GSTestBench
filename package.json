@@ -1,0 +1,22 @@
+{
+  "name": "gstestbench",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/com2027/GSTestBench.git"
+  },
+  "author": "Kieran Rigby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/com2027/GSTestBench/issues"
+  },
+  "homepage": "https://github.com/com2027/GSTestBench#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
