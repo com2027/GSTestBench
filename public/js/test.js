@@ -3,12 +3,22 @@ var connected = false;
 
 function connect(){
   var URL = document.getElementById('URL').value;
+  var token = document.getElementById('token_input').value;
   var status_obj = document.getElementById('status');
   var button_obj = document.getElementById('connect');
 
+
   if(connected == false){
-      socket = io(URL);
-      appendTerminal('Connecting to ' + URL);
+
+      if(token === ""){
+        socket = io(URL);
+        appendTerminal('Connecting to ' + URL);
+      }else{
+        socket = io(URL, {query: {token: token}});
+        appendTerminal('Connecting to ' + URL);
+        appendTerminal('Using authentication token: ' + token);
+      }
+
 
       setTimeout(function() {
         if(socket.connected){

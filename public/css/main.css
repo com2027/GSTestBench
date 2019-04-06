@@ -30,3 +30,8 @@ body{
   float:right;
   margin-top:5px;
 }
+
+#token_input{
+  background-color:#444;
+  color:#fff;
+}
