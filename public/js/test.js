@@ -1,6 +1,63 @@
 var socket;
 var connected = false;
 
+var Game = {
+  players: [],
+  addUser: function(id){
+    this.players.push(id);
+    renderUserList();
+  },
+  removeUser: function(id){
+    this.players.splice( this.players.indexOf(id), 1 );
+    renderUserList();
+  },
+  create: function(){
+    console.log("creating game...");
+    if(connected){
+      socket.emit('createGame', this.players)
+    }
+  }
+}
+
+function renderUserList(){
+  var user_list = document.getElementById('added_users');
+  user_list.innerHTML = '';
+  Game.players.forEach(function(player){
+    var li = document.createElement("li")
+    var remove = document.createElement("button")
+    li.classList.add("list-group-item");
+    li.innerText = player;
+    remove.classList.add("remove")
+    remove.innerText = "X"
+    remove.setAttribute("onclick","Game.removeUser('" + player + "')");
+    li.appendChild(remove);
+    user_list.appendChild(li);
+  })
+
+}
+
+function addUser(){
+  var id = document.getElementById('add_user_input');
+  if(id !== ""){
+    Game.addUser(id.value);
+    id.value = '';
+  }
+}
+
+function enable_functionality(){
+  var createGame = document.getElementById('create_game');
+  createGame.classList.remove('btn-secondary');
+  createGame.classList.add('btn-success');
+  createGame.disabled = false;
+}
+
+function disable_functionality(){
+  var createGame = document.getElementById('create_game');
+  createGame.classList.remove('btn-success');
+  createGame.classList.add('btn-secondary');
+  createGame.disabled = true;
+}
+
 function connect(){
   var URL = document.getElementById('URL').value;
   var token = document.getElementById('token_input').value;
@@ -19,7 +76,6 @@ function connect(){
         appendTerminal('Using authentication token: ' + token);
       }
 
-
       setTimeout(function() {
         if(socket.connected){
           connected = true;
@@ -32,8 +88,9 @@ function connect(){
           status_obj.classList.add('text-success');
           status_obj.innerText = "Connected";
 
+          enable_functionality();
 
-
+          // socket.on('disconnect', connect);
 
         }else{
           connected = false;
@@ -57,6 +114,8 @@ function connect(){
         status_obj.classList.remove('text-success');
         status_obj.classList.add('text-danger');
         status_obj.innerText = "Disconnected";
+
+        disable_functionality();
       }else{
         connected = true;
         appendTerminal("Still Connected!");

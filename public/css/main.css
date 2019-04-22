@@ -21,6 +21,36 @@ body{
   margin-top:20px;
 }
 
+.dark{
+  background-color:#444;
+  color:#fff;
+}
+
+h3{
+  margin-top:10px;
+}
+
+li{
+  background-color:transparent !important;
+  border:none !important;
+  border-bottom: 1px solid #666 !important;
+  border-radius:0px !important;
+}
+
+.remove{
+  background-color:transparent;
+  color:#888;
+  border:none;
+  float:right;
+}
+.remove:hover{
+  background-color:#444;
+}
+
+.photo{
+  margin-top:10px;
+}
+
 #status-indicator{
   font-size:1.6em;
   margin-left:30px;
@@ -34,4 +64,19 @@ body{
 #token_input{
   background-color:#444;
   color:#fff;
+  margin-bottom:20px;
+}
+
+#add_user_input:focus{
+  background-color:#444;
+  color:#fff;
+}
+
+#added_users{
+  max-height:200px;
+  overflow-y:scroll;
+}
+#create_game{
+  float:right;
+  margin-top:10px;
 }

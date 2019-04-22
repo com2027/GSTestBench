@@ -1,5 +1,5 @@
 var terminal = document.getElementById('server-terminal');
-terminal.style.height = "50vh";
+terminal.style.height = "40vh";
 terminal.style.backgroundColor = "#444";
 terminal.style.border = "1px solid #777";
 terminal.style.color = "#fff";

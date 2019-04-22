@@ -6,14 +6,17 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js'></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src='js/test.js'></script>
 
   </head>
   <body>
 
-    <div class='container'>
+    <div class='container-fluid'>
       <div class='row'>
-        <div class='col'>
+        <div class='col-md-12'>
           <h1>Bounty Hunter GS Test Bench</h1>
         </div>
       </div>
@@ -25,15 +28,44 @@
 
       <div class='row'>
         <div class='col-md-6'>
+          <input type='text' class='form-control dark' placeholder='Authentication Token' id='token_input'>
+        </div>
+        <div class='col-md-6'>
+
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-6'>
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="create-game-tab" data-toggle="tab" href="#creategame" role="tab" aria-controls="creategame" aria-selected="true">Create Game</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="join-game-tab" data-toggle="tab" href="#joingame" role="tab" aria-controls="joingame" aria-selected="false">Join Game</a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li> -->
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="creategame" role="tabpanel" aria-labelledby="creategame-tab">
+              <h3>Create Game</h3>
+              <div class="input-group">
+              <input type='text' class='form-control dark' placeholder='User ID to add ' id='add_user_input'>
+              <button class='btn btn-success' id='add_user' onclick='addUser();'>+</button>
+              </div>
+              <ul class="list-group" id="added_users">
+              </ul>
+              Upload a photo: <input type='file' class='photo'><button class='btn btn-secondary' onclick='Game.create();' id='create_game' disabled='false'>Create Game</button>
+            </div>
+            <div class="tab-pane fade" id="joingame" role="tabpanel" aria-labelledby="joingame-tab">...</div>
+            <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
+          </div>
 
         </div>
         <div class='col-md-6'>
           <h3>Response:</h3>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-md-6'><input type='text' class='form-control' placeholder='Authentication Token' id='token_input'></div>
-        <div class='col-md-6'>
           <div id='server-terminal'>
           </div>
           <button type="button" class="btn btn-primary" onclick='clearTerminal();' id='clear'>Clear</button>
