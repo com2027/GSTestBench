@@ -21,14 +21,14 @@
         </div>
       </div>
       <div class='row connect-section'>
-        <div class='col-md-6'><input value='http://gs.bountyhunt.me' type='text' class='form-control' placeholder='Socket IO Server' id='URL'></div>
+        <div class='col-md-6'><input value='http://localhost:3000' type='text' class='form-control' placeholder='Socket IO Server' id='URL'></div>
         <div class='col-md-1'><button type="button" class="btn btn-success" onclick='connect();' id='connect'>Connect</button></div>
         <div class='col-md-5'><p id='status-indicator'>Status: <span id='status' class='text-danger'>Disconnected</span></p></div>
       </div>
 
       <div class='row'>
         <div class='col-md-6'>
-          <input type='text' class='form-control dark' placeholder='Authentication Token' id='token_input'>
+          <input type='text' value='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRjZGUxNDIwLThiMzEtNDAwMi05ZTY0LWEyMzA5M2I1OWZkYyIsImlhdCI6MTU1NTkwODYyNSwiZXhwIjoxNTU4MzI3ODI1fQ.pQ5I0sHYR-lAmpzA8YtHQ0kips32JCDmXkZUYIjKe04' class='form-control dark' placeholder='Authentication Token' id='token_input'>
         </div>
         <div class='col-md-6'>
 
@@ -36,7 +36,7 @@
       </div>
       <div class='row'>
         <div class='col-md-6'>
-
+          <h5><b>Game ID: </b><span id='game-status'>Not in Game</span></h5>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="create-game-tab" data-toggle="tab" href="#creategame" role="tab" aria-controls="creategame" aria-selected="true">Create Game</a>

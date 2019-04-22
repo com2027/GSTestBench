@@ -1,5 +1,6 @@
 var socket;
 var connected = false;
+var inGame = false;
 
 var Game = {
   players: [],
@@ -44,18 +45,59 @@ function addUser(){
   }
 }
 
-function enable_functionality(){
+function updateState(){
+  var gameStatus = document.getElementById('game-status');
+  if(inGame){
+    disable_create_game();
+    gameStatus.innerText = Game.id
+  }else{
+    if(connected){
+      enable_create_game();
+      gameStatus.innerText = "Not in Game"
+    }else{
+      disable_create_game();
+      gameStatus.innerText = "Not in Game"
+    }
+  }
+}
+
+function define_listeners(){
+  socket.on('gameCreated', function(game){
+    appendTerminal("[SERVER]: " + game.message);
+    appendTerminal("[SERVER]: Game ID - " + game.id);
+    Game.id = game.id;
+    inGame = true;
+    updateState();
+  });
+
+  socket.on('gameNotCreated', function(err){
+    appendTerminal("[SERVER]: " + err.message);
+  });
+}
+
+function enable_create_game(){
   var createGame = document.getElementById('create_game');
   createGame.classList.remove('btn-secondary');
   createGame.classList.add('btn-success');
   createGame.disabled = false;
 }
 
-function disable_functionality(){
+function disable_create_game(){
   var createGame = document.getElementById('create_game');
   createGame.classList.remove('btn-success');
   createGame.classList.add('btn-secondary');
   createGame.disabled = true;
+}
+
+function enable_functionality(){
+  enable_create_game();
+
+  define_listeners();
+
+}
+
+function disable_functionality(){
+  disable_create_game();
 }
 
 function connect(){
@@ -116,6 +158,8 @@ function connect(){
         status_obj.innerText = "Disconnected";
 
         disable_functionality();
+        inGame = false;
+        updateState();
       }else{
         connected = true;
         appendTerminal("Still Connected!");
