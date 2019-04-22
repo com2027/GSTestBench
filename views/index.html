@@ -52,6 +52,7 @@
             </li> -->
           </ul>
           <div class="tab-content" id="myTabContent">
+            <!-- CREATE GAME -->
             <div class="tab-pane fade show active" id="creategame" role="tabpanel" aria-labelledby="creategame-tab">
               <h3>Create Game</h3>
               <div class="input-group">
@@ -63,7 +64,13 @@
               Upload a photo: <input type='file' class='photo' id='create_photo'><button class='btn btn-secondary' onclick='Game.create();' id='create_game' disabled='false'>Create Game</button>
               <button class='btn btn-danger' onclick='Game.leave();' id='leave_game' disabled='false'>Leave Game</button>
             </div>
-            <div class="tab-pane fade" id="joingame" role="tabpanel" aria-labelledby="joingame-tab">...</div>
+            <!-- JOIN GAME -->
+            <div class="tab-pane fade" id="joingame" role="tabpanel" aria-labelledby="joingame-tab">
+              <h3>Join Game</h3>
+              <input type='text' class='form-control dark' placeholder='Game ID' id='game_id_input'>
+              Upload a photo: <input type='file' class='photo' id='create_photo'>
+              <button class='btn btn-secondary' id='join_game' onclick='Game.join();' disabled='false'>Join Game</button>
+            </div>
             <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
           </div>
 

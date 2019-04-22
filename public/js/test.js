@@ -27,6 +27,8 @@ var Game = {
           image.width = 50;
           image.height = 50;
           image.style = "border-radius:50%";
+          disable_create_game();
+          disable_join_game();
         }
       }
       reader.readAsDataURL(photo.files[0]);
@@ -38,6 +40,8 @@ var Game = {
     console.log("leaving game...");
     if(connected && inGame){
       socket.emit("leaveGame");
+      enable_join_game();
+      enable_create_game();
     }
   }
 }
@@ -115,6 +119,13 @@ function enable_create_game(){
   createGame.disabled = false;
 }
 
+function enable_join_game(){
+  var joinGame = document.getElementById('join_game');
+  joinGame.classList.remove('btn-secondary');
+  joinGame.classList.add('btn-success');
+  joinGame.disabled = false;
+}
+
 function disable_create_game(){
   var createGame = document.getElementById('create_game');
   createGame.classList.remove('btn-success');
@@ -122,8 +133,16 @@ function disable_create_game(){
   createGame.disabled = true;
 }
 
+function disable_join_game(){
+  var joinGame = document.getElementById('join_game');
+  joinGame.classList.remove('btn-success');
+  joinGame.classList.add('btn-secondary');
+  joinGame.disabled = true;
+}
+
 function enable_functionality(){
   enable_create_game();
+  enable_join_game();
 
   define_listeners();
 
@@ -131,6 +150,7 @@ function enable_functionality(){
 
 function disable_functionality(){
   disable_create_game();
+  disable_join_game();
 }
 
 function connect(){
