@@ -13,9 +13,25 @@ var Game = {
     renderUserList();
   },
   create: function(){
-    console.log("creating game...");
-    if(connected){
-      socket.emit('createGame', this.players)
+    var photo = document.getElementById('create_photo');
+    var reader = new FileReader();
+    if(photo.files.length > 0){
+      console.log("creating game...");
+      reader.onload = function(evt){
+        if(connected){
+          var index = evt.target.result.indexOf(',');
+          socket.emit('createGame', {players: this.players, photo: evt.target.result.slice(index+1,evt.target.length)});
+          var gameInfo = document.getElementById('game-info');
+          var image = document.getElementById('photo');
+          image.src = evt.target.result;
+          image.width = 50;
+          image.height = 50;
+          image.style = "border-radius:50%";
+        }
+      }
+      reader.readAsDataURL(photo.files[0]);
+    }else{
+      alert("Please supply an image");
     }
   },
   leave: function(){
