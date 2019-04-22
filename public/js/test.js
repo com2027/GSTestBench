@@ -17,6 +17,12 @@ var Game = {
     if(connected){
       socket.emit('createGame', this.players)
     }
+  },
+  leave: function(){
+    console.log("leaving game...");
+    if(connected && inGame){
+      socket.emit("leaveGame");
+    }
   }
 }
 
@@ -47,16 +53,20 @@ function addUser(){
 
 function updateState(){
   var gameStatus = document.getElementById('game-status');
+  var leaveGame = document.getElementById('leave_game');
   if(inGame){
     disable_create_game();
-    gameStatus.innerText = Game.id
+    gameStatus.innerText = Game.id;
+    leaveGame.disabled = false;
   }else{
     if(connected){
       enable_create_game();
       gameStatus.innerText = "Not in Game"
+      leaveGame.disabled = true;
     }else{
       disable_create_game();
       gameStatus.innerText = "Not in Game"
+      leaveGame.disabled = true;
     }
   }
 }
@@ -72,6 +82,13 @@ function define_listeners(){
 
   socket.on('gameNotCreated', function(err){
     appendTerminal("[SERVER]: " + err.message);
+  });
+
+  socket.on('gameLeft', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    inGame = false;
+    delete Game.id;
+    updateState();
   });
 }
 
