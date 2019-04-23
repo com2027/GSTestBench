@@ -17,10 +17,11 @@ var Game = {
     var reader = new FileReader();
     if(photo.files.length > 0){
       console.log("creating game...");
+      var self = this;
       reader.onload = function(evt){
         if(connected){
           var index = evt.target.result.indexOf(',');
-          socket.emit('createGame', {players: this.players, photo: evt.target.result.slice(index+1,evt.target.length)});
+          socket.emit('createGame', {players: self.players, photo: evt.target.result.slice(index+1,evt.target.length)});
           var gameInfo = document.getElementById('game-info');
           var image = document.getElementById('photo');
           image.src = evt.target.result;
@@ -42,6 +43,24 @@ var Game = {
       socket.emit("leaveGame");
       enable_join_game();
       enable_create_game();
+    }
+  },
+  join: function(){
+    var game_id = document.getElementById('game_id_input').value;
+    var photo = document.getElementById('join_photo');
+    console.log(game_id);
+    var reader = new FileReader();
+    if(photo.files.length > 0){
+      console.log("joining game...");
+      reader.onload = function(evt){
+        var index = evt.target.result.indexOf(',');
+        socket.emit('joinGame', {id: game_id, photo: evt.target.result.slice(index+1,evt.target.length)});
+        // disable_create_game();
+        // disable_join_game();
+      }
+      reader.readAsDataURL(photo.files[0]);
+    }else{
+      alert("Please supply an image");
     }
   }
 }
@@ -109,6 +128,9 @@ function define_listeners(){
     inGame = false;
     delete Game.id;
     updateState();
+  });
+  socket.on('err', function(data){
+    appendTerminal("[SERVER]: [ERROR: " + data.type + "] - " + data.message )
   });
 }
 

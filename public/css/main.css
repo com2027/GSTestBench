@@ -96,3 +96,8 @@ li{
   float:right;
   margin-top:10px;
 }
+
+#game_id_input:focus{
+  background-color:#444;
+  color:#fff;
+}
