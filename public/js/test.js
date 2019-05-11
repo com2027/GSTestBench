@@ -23,7 +23,7 @@ var Game = {
       reader.onload = function(evt){
         if(connected){
           var index = evt.target.result.indexOf(',');
-          socket.emit('createGame', {players: self.players, photo: evt.target.result.slice(index+1,evt.target.length)});
+          socket.emit('createGame', {players: "["+self.players.join(",") + "]", photo: evt.target.result.slice(index+1,evt.target.length)});
           var gameInfo = document.getElementById('game-info');
           var image = document.getElementById('photo');
           image.src = evt.target.result;
@@ -64,6 +64,11 @@ var Game = {
     }else{
       alert("Please supply an image");
     }
+  },
+  decline: function(){
+    var game_id = document.getElementById('game_id_input').value;
+    console.log("declining game " + game_id);
+    socket.emit('declineGame', {id: game_id});
   }
 }
 
@@ -160,6 +165,10 @@ function enable_join_game(){
   joinGame.classList.remove('btn-secondary');
   joinGame.classList.add('btn-success');
   joinGame.disabled = false;
+  var declineGame = document.getElementById('decline_game');
+  declineGame.classList.remove('btn-secondary');
+  declineGame.classList.add('btn-danger');
+  declineGame.disabled = false;
 }
 
 function disable_create_game(){
@@ -174,6 +183,10 @@ function disable_join_game(){
   joinGame.classList.remove('btn-success');
   joinGame.classList.add('btn-secondary');
   joinGame.disabled = true;
+  var declineGame = document.getElementById('decline_game');
+  declineGame.classList.add('btn-secondary');
+  declineGame.classList.remove('btn-danger');
+  declineGame.disabled = false;
 }
 
 function enable_functionality(){
