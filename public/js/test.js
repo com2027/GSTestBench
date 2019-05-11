@@ -2,6 +2,8 @@ var socket;
 var connected = false;
 var inGame = false;
 
+var BHGame = {};
+
 var Game = {
   players: [],
   addUser: function(id){
@@ -95,7 +97,8 @@ function updateState(){
   var leaveGame = document.getElementById('leave_game');
   if(inGame){
     disable_create_game();
-    gameStatus.innerText = Game.id;
+    disable_join_game();
+    gameStatus.innerText = BHGame.id;
     leaveGame.disabled = false;
   }else{
     if(connected){
@@ -111,10 +114,10 @@ function updateState(){
 }
 
 function define_listeners(){
-  socket.on('gameCreated', function(game){
-    appendTerminal("[SERVER]: " + game.message);
-    appendTerminal("[SERVER]: Game ID - " + game.id);
-    Game.id = game.id;
+  socket.on('gameCreated', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    appendTerminal("[SERVER]: Game ID - " + data.game.id);
+    BHGame = data.game;
     inGame = true;
     updateState();
   });
@@ -127,8 +130,19 @@ function define_listeners(){
     appendTerminal("[SERVER]: " + data.message);
     inGame = false;
     delete Game.id;
+    delete BHGame;
     updateState();
   });
+
+  socket.on('userJoined', function(data){
+    console.log("here");
+    appendTerminal("[SERVER]: " + data.message);
+    BHGame = data.game;
+    inGame = true;
+    updateState();
+  });
+
+
   socket.on('err', function(data){
     appendTerminal("[SERVER]: [ERROR: " + data.type + "] - " + data.message )
   });
