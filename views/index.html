@@ -47,6 +47,12 @@
             <li class="nav-item">
               <a class="nav-link" id="join-game-tab" data-toggle="tab" href="#joingame" role="tab" aria-controls="joingame" aria-selected="false">Join Game</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="join-lobby-tab" data-toggle="tab" href="#joinlobby" role="tab" aria-controls="joinlobby" aria-selected="false">Join Lobby</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="update-location-tab" data-toggle="tab" href="#updatelocation" role="tab" aria-controls="updatelocation" aria-selected="false">Update Location</a>
+            </li>
             <!-- <li class="nav-item">
               <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
             </li> -->
@@ -71,6 +77,23 @@
               Upload a photo: <input type='file' class='photo' id='join_photo'>
               <button class='btn btn-danger' id='decline_game' onclick='Game.decline();' disabled='false'>Decline Game</button>
               <button class='btn btn-secondary' id='join_game' onclick='Game.join();' disabled='false'>Join Game</button>
+            </div>
+            <!-- JOIN LOBBY -->
+            <div class="tab-pane fade" id="joinlobby" role="tabpanel" aria-labelledby="joinlobby-tab">
+              <h3>Join Lobby</h3>
+              <input type='text' class='form-control dark' placeholder='Longitude' id='long_input'>
+              <input type='text' class='form-control dark' placeholder='Latitude' id='lat_input'>
+              <input type='text' class='form-control dark' placeholder='Altitude' id='alt_input'>
+              <button class='btn btn-success' id='join_game' onclick='Game.joinLobby();'>Join Lobby</button>
+            </div>
+
+            <!-- Update location -->
+            <div class="tab-pane fade" id="updatelocation" role="tabpanel" aria-labelledby="updatelocation-tab">
+              <h3>Join Lobby</h3>
+              <input type='text' class='form-control dark' placeholder='Longitude' id='long_input_ul'>
+              <input type='text' class='form-control dark' placeholder='Latitude' id='lat_input_ul'>
+              <input type='text' class='form-control dark' placeholder='Altitude' id='alt_input_ul'>
+              <button class='btn btn-success' id='update_location' onclick='Game.updateLocation();'>Update Location</button>
             </div>
             <!-- <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div> -->
           </div>

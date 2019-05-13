@@ -65,6 +65,18 @@ var Game = {
       alert("Please supply an image");
     }
   },
+  joinLobby: function(){
+    var long = parseInt(document.getElementById('long_input').value);
+    var lat = parseInt(document.getElementById('lat_input').value);
+    var alt = parseInt(document.getElementById('alt_input').value);
+    socket.emit('joinLobby', {long:long,lat:lat,alt:alt});
+  },
+  updateLocation: function(){
+    var long = parseInt(document.getElementById('long_input_ul').value);
+    var lat = parseInt(document.getElementById('lat_input_ul').value);
+    var alt = parseInt(document.getElementById('alt_input_ul').value);
+    socket.emit('locationUpdate', {long:long,lat:lat,alt:alt});
+  },
   decline: function(){
     var game_id = document.getElementById('game_id_input').value;
     console.log("declining game " + game_id);
@@ -131,6 +143,11 @@ function define_listeners(){
     appendTerminal("[SERVER]: " + err.message);
   });
 
+  socket.on('userLeft', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    BHGame = data.game;
+  });
+
   socket.on('gameLeft', function(data){
     appendTerminal("[SERVER]: " + data.message);
     inGame = false;
@@ -139,14 +156,41 @@ function define_listeners(){
     updateState();
   });
 
+  socket.on('userDeclined', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    BHGame = data.game;
+  });
+
+  socket.on('gameDeclined', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    inGame = false;
+  });
+
+  socket.on('gameJoined', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+  });
+
   socket.on('userJoined', function(data){
-    console.log("here");
     appendTerminal("[SERVER]: " + data.message);
     BHGame = data.game;
     inGame = true;
     updateState();
   });
 
+  socket.on('joinedLobby', function(data){
+    appendTerminal("[SERVER]: " + data.message);
+    BHGame = data.game;
+  });
+
+  socket.on('gameStarted', function(data){
+    appendTerminal("[SERVER]: Game Started!" );
+    BHGame = data.game;
+  });
+
+  socket.on('gameUpdate', function(data){
+    appendTerminal("[SERVER]: Game Updated!" );
+    BHGame = data.game;
+  })
 
   socket.on('err', function(data){
     appendTerminal("[SERVER]: [ERROR: " + data.type + "] - " + data.message )
